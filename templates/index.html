@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Checker - Should I Watch?</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Score Checker</h1>
+            <p class="subtitle">Find out if the game is worth watching (no spoilers!)</p>
+        </header>
+
+        <div class="controls-row">
+            <div class="sport-picker">
+                <label for="sport-select">Sport:</label>
+                <select id="sport-select">
+                    <option value="nba">NBA</option>
+                    <option value="nfl">NFL</option>
+                    <option value="mlb">MLB</option>
+                    <option value="nhl">NHL</option>
+                    <option value="epl">Premier League</option>
+                    <option value="ncaab">NCAAB</option>
+                    <option value="ncaaf">NCAAF</option>
+                </select>
+            </div>
+            <div class="date-picker">
+                <label for="game-date">Date:</label>
+                <input type="date" id="game-date">
+            </div>
+        </div>
+
+        <div id="loading" class="loading hidden">Loading games...</div>
+        <div id="error" class="error hidden"></div>
+        <div id="no-games" class="no-games hidden">No games scheduled for this date.</div>
+
+        <div id="games-container" class="games-container"></div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="result-icon"></div>
+            <h2 id="result-title"></h2>
+            <p id="result-reason"></p>
+            <div id="score-reveal" class="hidden">
+                <button id="show-score-btn" class="btn btn-secondary">Show Final Score</button>
+                <div id="final-score" class="hidden"></div>
+            </div>
+            <button id="close-modal-btn" class="btn">Close</button>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
