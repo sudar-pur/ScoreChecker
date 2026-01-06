@@ -31,8 +31,9 @@ let currentInProgressData = null;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // Set date picker to today
-    const today = new Date().toISOString().split('T')[0];
+    // Set date picker to today (local timezone)
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     datePicker.value = today;
 
     // Load games for default sport
@@ -220,11 +221,17 @@ function showResult(data) {
     currentScoreData = data.score;
     currentInProgressData = null;
 
-    // Handle in-progress games - show "worth watching" first
+    // Handle in-progress games
     if (data.game_in_progress) {
         currentInProgressData = data.differential_info;
-        resultIcon.textContent = '✅';
-        resultTitle.textContent = 'Yes, watch it!';
+
+        if (data.worth_watching) {
+            resultIcon.textContent = '✅';
+            resultTitle.textContent = 'Yes, watch it!';
+        } else {
+            resultIcon.textContent = '❌';
+            resultTitle.textContent = 'Not worth watching';
+        }
         resultReason.textContent = data.reason;
 
         // Offer to show differential
