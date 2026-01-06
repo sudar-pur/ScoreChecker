@@ -195,9 +195,20 @@ def check_game():
 
         within_threshold = abs(point_diff) <= threshold or my_score >= opp_score
 
+        # Apply same logic as finished games - is it currently worth watching?
+        if my_score >= opp_score:
+            worth_watching = True
+            reason = f"Game still in progress ({game_status})"
+        elif abs(point_diff) <= threshold:
+            worth_watching = True
+            reason = f"Game still in progress ({game_status})"
+        else:
+            worth_watching = False
+            reason = f"Currently outside your {threshold}-{score_unit} threshold ({game_status})"
+
         return jsonify({
-            "worth_watching": True,
-            "reason": f"Game still in progress ({game_status})",
+            "worth_watching": worth_watching,
+            "reason": reason,
             "game_finished": False,
             "game_in_progress": True,
             "my_team_name": my_team_name,
